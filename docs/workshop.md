@@ -783,11 +783,11 @@ You will see some erratic behaviour in the current consumption with the electric
 
 ![alt text](assets/image_task04_step27.png)
 
-26. If you follow the three dots next to the `BronzeEnergyMeter` table name, you get a sub-menu with extra options. **Select Visual exploration** for a no-code experience.
+26. If you follow the three dots next to the `BronzeEnergyMeter` table name, you get a sub-menu with extra options. **Select Explore data** for a no-code experience.
 
 ![alt text](assets/image_task04_step28.png)
 
-27. A new dialog is shown with a preview of incoming messages. Some visual statistics are shown to the right, like the distribution of keys. **Change the visualization** at the top.
+27. A new dialog is shown with a preview of incoming messages. **Select Visual** at the top.
 
 ![alt text](assets/image_task04_step29.png)
 
@@ -795,27 +795,15 @@ You will see some erratic behaviour in the current consumption with the electric
 
 ![alt text](assets/image_task04_step30.png)
 
-29. The visualization is not smart enough to understand the actual meaning of the value column at this moment. This is both because we are mixing two types of messages (`current` and `voltage`) and because the values are of type 'string', not decimal values. We will fix this later on.
+29. The visualization will not render. This is both because we are mixing two types of messages (`current` and `voltage`) and because the values are of type 'string', not decimal values. We will fix this later on.
 
 ![alt text](assets/image_task04_step31.png)
 
-30. The visual exploration also offers extra filters and aggregations.
-
-![alt text](assets/image_task04_step32.png)
-
-31. Just as a demonstration of how this dialog works, add an aggregation (Notice that this step will not produce any useful results due to the string values!). So, we are interested in the `Average operator` based on the `value column`. We **add two** `group by` rows. We **group by key** (so we potentially split 'current' messages from 'voltage' messages), and we **group by deviceId** so we split up messages coming from different devices. **Apply** the aggregation.
-
-![alt text](assets/image_task04_step33.png)
-
-32. Because of the current type limitation of the incoming data (the `value column` is still of type 'string'), so the aggregation will fail. But the intent of this dialog is still understood, the KQL query language shows a summary by key and deviceId.
-
-![alt text](assets/image_task04_step34.png)
-
-33. **Click** `Back` to leave the Visual exploration. **Navigate to the KQL Queryset** named `EH_YCSneakerEventStore_queryset` within the database. We will use the KQL query language to turn the bronze table into two separate silver tables.
+30. **Click** `Back to Eventhouse` to leave the Visual exploration. **Navigate to the KQL Queryset** named `EH_YCSneakerEventStore_queryset` within the database. We will use the KQL query language to turn the bronze table into two separate silver tables.
 
 ![alt text](assets/image_task04_step35.png)
 
-34. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
+32. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
 
 ```
 // query 1/3 - Create a table
