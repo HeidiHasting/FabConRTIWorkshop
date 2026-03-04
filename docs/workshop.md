@@ -261,7 +261,7 @@ We will use a materialized view to create the weather data silver Layer in our m
 
 - Copilot for Real-Time Intelligence is an advanced AI tool designed to help you explore your data and extract valuable insights. You can input questions about your data, which are then automatically translated into Kusto Query Language (KQL) queries. Copilot streamlines the process of analyzing data for both experienced KQL users and citizen data scientists.
 
-- Feature [documentation](https://learn.microsoft.com/fabric/get-started/copilot-real-time-intelligence).
+- Feature [documentation](https://blog.fabric.microsoft.com/en-us/blog/copilot-for-kql-in-real-time-intelligence/).
 
 ![Copilot](assets/Copilot.png "Fabric Copilot in KQL Queryset")
 
@@ -387,7 +387,7 @@ For this workshop, Fabric items relevant for this workshop have been pre-created
 
 ### 2. Lab 01 - Shipping Events
 
-YourCompany receives shipping events as XML files in an Azure storage account, from third party suppliers. It is imperative to capture and track these shipping events to ensure that any delays can be proactively be detected and the customers can be notified instead of waiting to get the signal a few minutes/hours/days later.
+YourCompany receives shipping events as XML files in an Azure storage account, from third party suppliers. It is imperative to capture and track these shipping events to ensure that any delays can be proactively detected and the customers can be notified instead of waiting to get the signal a few minutes/hours/days later.
 
 To achieve this, we start with ingesting these shipping events into Real-Time Intelligence components continuously as soon as they arrive in the storage account. We will setup an architecture to continuously listen to the shipping events.
 
