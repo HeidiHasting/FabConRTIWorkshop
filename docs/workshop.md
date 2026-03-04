@@ -673,7 +673,7 @@ Via Azure Arc, an Azure IoT Operations dataflow, running on the edge, forwards t
 
 You will ingest the energy meter data from an Azure Event Hub.
 
-Notice that the electric motor starts and stops every 15 minutes so you will see some erratic behavior in the current consumption.
+You will see some erratic behaviour in the current consumption with the electric motor starts and stops every 15 minutes.
 
 ![alt text](assets/rtiLabArchitecture_workshop_4.png)
 
