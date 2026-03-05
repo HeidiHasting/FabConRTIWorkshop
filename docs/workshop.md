@@ -1631,7 +1631,7 @@ Here, factory data from several 'silver' tables will be shared via OneLake so a 
 
 ![alt text](assets/image_task09_step01.png)
 
-2. Although this option offers Onlake access for all tables, we can also enable it per table. **Enable OneLake availability** for all three 'silver' tables `SilverEnergyMeterCurrent`, `SilverEnergyMeterVoltage`, and `SilverLoraWanTemperature`.
+2. Although this option offers Onelake access for all tables, we can also enable it per table. **Enable OneLake availability** for all three 'silver' tables `SilverEnergyMeterCurrent`, `SilverEnergyMeterVoltage`, and `SilverLoraWanTemperature`.
 
 ![alt text](assets/image_task09_step02.png)
 
