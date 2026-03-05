@@ -1194,17 +1194,21 @@ SilverLoraWanTemperature
 
 ![alt text](assets/image_task05_step37.png)
 
-44. In the KQL Database, the `SilverLoraWanTemperature` provides several options to work with the data by **clicking the 'three dots'** so this menu pops up. **Select Visual Exploration**.
+44. In the KQL Database, the `SilverLoraWanTemperature` provides several options to work with the data by **clicking the 'three dots'** so this menu pops up. **Select Explore data**.
 
 ![alt text](assets/image_task05_step38.png)
 
-45. A new dialog is shown with table column details (like minimum and maximum values) to the right and rows in the Results pane. **Play around** with the Columns pane by providing 'deviceId' as column name.
+45. A new dialog is shown with table rows displayed. **Play around** with the Columns pane to toggle columns to display or not display.
 
 ![alt text](assets/image_task05_step39.png)
 
-46. **Change the visualization** to 'Line chart' or any other applicable visualization.
+46. **Select Visual** to view the data visually.
+
+47. **Select** 'Line chart' or any other applicable visualization.
 
 ![alt text](assets/image_task05_step40.png)
+![alt text](assets/image_task05_step41.png)
+
 
 We have seen how we can ingest LoraWan telemetry from multiple devices via one Eventstream. The telemetry is ingested into a Bronze LoraWan table in the KQL Database via an elaborate table mapping. The Eventhouse supports the Medallion Architecture via table Update policies. Here, a Silver LoraWan table with temperature sensor telemetry is filled, complete with the correct column types. We have also seen how we can use the no-code Visual Exploration to check the data in more detail. In the next paragraph, we will complete the temperature sensor data with data from a real-time weather data service.
 
