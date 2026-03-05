@@ -1670,7 +1670,7 @@ Here, factory data from several 'silver' tables will be shared via OneLake so a 
 
 ![alt text](assets/image_task09_step09.png)
 
-8. Notice that KQL Database tables are available for selection. Those are the 'silver' tables we made available for OneLake.
+8. Notice that KQL Database tables are available for selection. Those are the 'silver' tables we made available for OneLake.If the checkbox is displayed for each table but you are unable to select, wait and retry, it can take a moment for the tables to become available to the shortcut.
 
 ![alt text](assets/image_task09_step11.png)
 
