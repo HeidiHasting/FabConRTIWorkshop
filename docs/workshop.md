@@ -1032,6 +1032,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 12. **Fill in** `BronzeLoraWan` as the 'Table name'. **Accept** the data source connection name. **Go to** the `next` page to create a mapping.
 
 ![alt text](assets/image_task05_step15.png)
+*Note: Data Connection name may appear as `<evenstream name>_<6 characters>` as a default, update the name to be something that makes sense to you.
 
 13. The incoming LoraWan messages are available in the JSON format. Here, we demonstrate how we can use the KQL table mapping to shape the message to columns in the table. First, we **start** by `changing the Nested levels to 0 (zero)`. This results in one column of the 'dynamic' type containing the complete message. Use the `pencil` to **change the mapping**, adding extra columns.
 
