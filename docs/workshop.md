@@ -261,7 +261,7 @@ We will use a materialized view to create the weather data silver Layer in our m
 
 - Copilot for Real-Time Intelligence is an advanced AI tool designed to help you explore your data and extract valuable insights. You can input questions about your data, which are then automatically translated into Kusto Query Language (KQL) queries. Copilot streamlines the process of analyzing data for both experienced KQL users and citizen data scientists.
 
-- Feature [documentation](https://learn.microsoft.com/fabric/get-started/copilot-real-time-intelligence).
+- Feature [documentation](https://blog.fabric.microsoft.com/en-us/blog/copilot-for-kql-in-real-time-intelligence/).
 
 ![Copilot](assets/Copilot.png "Fabric Copilot in KQL Queryset")
 
@@ -387,7 +387,7 @@ For this workshop, Fabric items relevant for this workshop have been pre-created
 
 ### 2. Lab 01 - Shipping Events
 
-YourCompany receives shipping events as XML files in an Azure storage account, from third party suppliers. It is imperative to capture and track these shipping events to ensure that any delays can be proactively be detected and the customers can be notified instead of waiting to get the signal a few minutes/hours/days later.
+YourCompany receives shipping events as XML files in an Azure storage account, from third party suppliers. It is imperative to capture and track these shipping events to ensure that any delays can be proactively detected and the customers can be notified instead of waiting to get the signal a few minutes/hours/days later.
 
 To achieve this, we start with ingesting these shipping events into Real-Time Intelligence components continuously as soon as they arrive in the storage account. We will setup an architecture to continuously listen to the shipping events.
 
@@ -537,7 +537,7 @@ The clicks will be generated via a generator running in a workbook.
 
 ![alt text](assets/image_lab02_step06.png)
 
-7. in the published Eventstream **Click** `ClickstreamNBSource` node to access the settings/details.
+7. In the published Eventstream **Click** `ClickstreamNBSource` node to access the settings/details.
 
 ![alt text](assets/image_lab02_step07.png)
 
@@ -625,23 +625,25 @@ The clicks will be generated via a generator running in a workbook.
 
 27. **Open** the existing `EH_YCSneakerEventStore` Eventhouse.
 
+28. **Open** the KQL database 'EH_YCSneakerEventStore'.
+
 ![alt text](assets/image_lab02_step26.png)
 
-28. **Click** on `EH_YCSneakerEventStore_queryset`, which is the default query editor of the Eventhouse.
+29. **Click** on `EH_YCSneakerEventStore_queryset`, which is the default query editor of the Eventhouse.
 
 ![alt text](assets/image_lab01_step20.png)
 
-29. **Navigate** to the github repo of this workshop [Clickstream Events KQL](https://aka.ms/FabConKQL2Url) in a separate tab.
+30. **Navigate** to the github repo of this workshop [Clickstream Events KQL](https://aka.ms/FabConKQL2Url) in a separate tab.
 
-30. **Copy** the `KQL code` from this file in the repo.
+31. **Copy** the `KQL code` from this file in the repo.
 
 ![alt text](assets/image_lab02_step29.png)
 
-31. **Paste** the copied KQL code in the `EH_YCSneakerEventStore_queryset`.
+32. **Paste** the copied KQL code in the `EH_YCSneakerEventStore_queryset`.
 
 ![alt text](assets/image_lab02_step30.png)
 
-32. **Rename** the tab as `Clickstream Events`.
+33. **Rename** the tab as `Clickstream Events`.
 
 ![alt text](assets/image_lab02_step31.png)
 
@@ -649,7 +651,7 @@ The clicks will be generated via a generator running in a workbook.
 
 ![alt text](assets/image_lab02_step32.png)
 
-34. **Check** the output as shown in the image below. A new function, table and an update policy must have been created in your workspace.
+35. **Check** the output as shown in the image below. A new function, table and an update policy must have been created in your workspace.
 
 ![alt text](assets/image_lab02_step33.png)
 
@@ -671,7 +673,7 @@ Via Azure Arc, an Azure IoT Operations dataflow, running on the edge, forwards t
 
 You will ingest the energy meter data from an Azure Event Hub.
 
-Notice that the electric motor starts and stops every 15 minutes so you will see some erratic behavior in the current consumption.
+You will see some erratic behaviour in the current consumption with the electric motor starts and stops every 15 minutes.
 
 ![alt text](assets/rtiLabArchitecture_workshop_4.png)
 
@@ -685,7 +687,7 @@ Notice that the electric motor starts and stops every 15 minutes so you will see
 
    ![alt text](assets/image_task04_step03.png)
 
-2. In the 'Select a data source' dialog **click** on the button `Connect`.
+2. In the 'Select a data source' dialog **click** on the button `Connect` next to Azure Event Hubs.
 
 ![alt text](assets/image_task04_step04.png)
 
@@ -781,11 +783,11 @@ Notice that the electric motor starts and stops every 15 minutes so you will see
 
 ![alt text](assets/image_task04_step27.png)
 
-26. If you follow the three dots next to the `BronzeEnergyMeter` table name, you get a sub-menu with extra options. **Select Visual exploration** for a no-code experience.
+26. If you follow the three dots next to the `BronzeEnergyMeter` table name, you get a sub-menu with extra options. **Select Explore data** for a no-code experience.
 
 ![alt text](assets/image_task04_step28.png)
 
-27. A new dialog is shown with a preview of incoming messages. Some visual statistics are shown to the right, like the distribution of keys. **Change the visualization** at the top.
+27. A new dialog is shown with a preview of incoming messages. **Select Visual** at the top.
 
 ![alt text](assets/image_task04_step29.png)
 
@@ -793,27 +795,15 @@ Notice that the electric motor starts and stops every 15 minutes so you will see
 
 ![alt text](assets/image_task04_step30.png)
 
-29. The visualization is not smart enough to understand the actual meaning of the value column at this moment. This is both because we are mixing two types of messages (`current` and `voltage`) and because the values are of type 'string', not decimal values. We will fix this later on.
+29. The visualization will not render. This is both because we are mixing two types of messages (`current` and `voltage`) and because the values are of type 'string', not decimal values. We will fix this later on.
 
 ![alt text](assets/image_task04_step31.png)
 
-30. The visual exploration also offers extra filters and aggregations.
-
-![alt text](assets/image_task04_step32.png)
-
-31. Just as a demonstration of how this dialog works, add an aggregation (Notice that this step will not produce any useful results due to the string values!). So, we are interested in the `Average operator` based on the `value column`. We **add two** `group by` rows. We **group by key** (so we potentially split 'current' messages from 'voltage' messages), and we **group by deviceId** so we split up messages coming from different devices. **Apply** the aggregation.
-
-![alt text](assets/image_task04_step33.png)
-
-32. Because of the current type limitation of the incoming data (the `value column` is still of type 'string'), so the aggregation will fail. But the intent of this dialog is still understood, the KQL query language shows a summary by key and deviceId.
-
-![alt text](assets/image_task04_step34.png)
-
-33. **Click** `Back` to leave the Visual exploration. **Navigate to the KQL Queryset** named `EH_YCSneakerEventStore_queryset` within the database. We will use the KQL query language to turn the bronze table into two separate silver tables.
+30. **Click** `Back to` to leave the Visual exploration. **Navigate to the KQL Queryset** named `EH_YCSneakerEventStore_queryset` within the database. We will use the KQL query language to turn the bronze table into two separate silver tables.
 
 ![alt text](assets/image_task04_step35.png)
 
-34. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
+32. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
 
 ```
 // query 1/3 - Create a table
@@ -999,7 +989,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 ![alt text](assets/image_task05_step03.png)
 
-2. In the 'Select a data source' dialog **click** on the button `Connect`.
+2. In the 'Select a data source' dialog **click** on the button `Connect` next to Azure Event Hub.
 
 ![alt text](assets/image_task05_step04.png)
 
@@ -1023,7 +1013,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 ![alt text](assets/image_task05_step10.png)
 
-8. We **select** `Direct Ingestion`, not 'Event processing before ingestion'! So, we need to add a table mapping later on. Also, **provide** the 'Eventhouse' named `EH_YCSneakerEventStore` and 'KQL Database' named `EH_YCSneakerEventStore` as seen in the previous paragraph. **Save** the settings (this can take a moment to set up the connection, please be patient). **Change** the 'Destination name' into `EventhouseDestination`.
+8. We **select** `Direct Ingestion`, not 'Event processing before ingestion'! So, we need to add a table mapping later on. Also, **provide** 'Eventhouse' named `EH_YCSneakerEventStore` and 'KQL Database' named `EH_YCSneakerEventStore` as seen in the previous paragraph. **Save** the settings (this can take a moment to set up the connection, please be patient). **Change** the 'Destination name' into `EventhouseDestination`.
 
 ![alt text](assets/image_task05_step11.png)
 
