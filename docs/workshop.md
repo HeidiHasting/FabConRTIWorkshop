@@ -1013,7 +1013,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 ![alt text](assets/image_task05_step10.png)
 
-8. We **select** `Direct Ingestion`, not 'Event processing before ingestion'! So, we need to add a table mapping later on. Also, **provide** the 'Eventhouse' named `EH_YCSneakerEventStore` and 'KQL Database' named `EH_YCSneakerEventStore` as seen in the previous paragraph. **Save** the settings (this can take a moment to set up the connection, please be patient). **Change** the 'Destination name' into `EventhouseDestination`.
+8. We **select** `Direct Ingestion`, not 'Event processing before ingestion'! So, we need to add a table mapping later on. Also, **provide** 'Eventhouse' named `EH_YCSneakerEventStore` and 'KQL Database' named `EH_YCSneakerEventStore` as seen in the previous paragraph. **Save** the settings (this can take a moment to set up the connection, please be patient). **Change** the 'Destination name' into `EventhouseDestination`.
 
 ![alt text](assets/image_task05_step11.png)
 
