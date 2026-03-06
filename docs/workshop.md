@@ -411,11 +411,11 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 
 ![alt text](assets/image_lab01_step04.png)
 
-5. **Keep the defaults** of Continuous Ingestion as `On` and `Connect to a storage account`. **Select** `FabConVienna 2025 Azure Subscription` as the Subscription.
+5. **Keep the defaults** of Continuous Ingestion as `On` and `Connect to a storage account`. **Select** `FabCon26 ATL Subscription` as the Subscription.
 
 ![alt text](assets/image_lab01_step05.png)
 
-6. **Select** `fabconvienna2025sa` as the Blob storage account.
+6. **Select** `fabconatlanta2026rtisa` as the Blob storage account.
 
 ![alt text](assets/image_lab01_step06.png)
 
@@ -423,25 +423,6 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 
 ![alt text](assets/image_lab01_step07.png)
 
-8. **Select** `New connection` in the connection.
-
-![alt text](assets/image_lab01_step08.png)
-
-9. In the New connection pop up, keep the other defaults. **Paste** the `Connection name` as your 'user account'. For example, if you are 'FabCon User 002', paste that as the connection name.
-
-![alt text](assets/image_lab01_step09.png)
-
-10. **Click** `Save` for the new connection.
-
-![alt text](assets/image_lab01_step10.png)
-
-11. **Click** `Close` (instead of 'Save').
-
-![alt text](assets/image_lab01_step11.png)
-
-12. In the Connection drop down, **Select** the connection that you just created.
-
-![alt text](assets/image_lab01_step12.png)
 
 13. **Rename** the 'Eventstream Name' to `ES_ShippingEvents`.
 
@@ -502,6 +483,9 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 ![alt text](assets/image_lab01_step26.png)
 
 The incoming XML messages with shipping events are now made available in typed columns and available for querying.
+
+Notice the ShippingEvents table is empty, this is because an update policy is only applied to new data as it arrives in the RawShippingMsgs, existing data is ignored. You can re-append the RawShippingMsgs data back into the RawShippingMsgs table for the update policy to run and see the data flow through to ShippingEvents table by using the following KQL command.
+```.append RawShippingMsgs <| RawShippingMsgs```
 
 
 
@@ -835,7 +819,7 @@ SilverEnergyMeterVoltage
 policy update @'[{"Source": "BronzeEnergyMeter", "Query": "ParseVoltageTelemetry", "IsEnabled" : true, "IsTransactional": true }]'
 ```
 
-35. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and new rows start to occure in the 'SilverEnergyMeterVoltage' table).
+35. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and new rows start to occur in the 'SilverEnergyMeterVoltage' table).
 
 ```
 SilverEnergyMeterVoltage
@@ -1032,6 +1016,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 12. **Fill in** `BronzeLoraWan` as the 'Table name'. **Accept** the data source connection name. **Go to** the `next` page to create a mapping.
 
 ![alt text](assets/image_task05_step15.png)
+*Note: Data Connection name may appear as `<evenstream name>_<6 characters>` as a default, update the name to be something that makes sense to you.
 
 13. The incoming LoraWan messages are available in the JSON format. Here, we demonstrate how we can use the KQL table mapping to shape the message to columns in the table. First, we **start** by `changing the Nested levels to 0 (zero)`. This results in one column of the 'dynamic' type containing the complete message. Use the `pencil` to **change the mapping**, adding extra columns.
 
@@ -1193,19 +1178,23 @@ SilverLoraWanTemperature
 
 ![alt text](assets/image_task05_step37.png)
 
-44. In the KQL Database, the `SilverLoraWanTemperature` provides several options to work with the data by **clicking the 'three dots'** so this menu pops up. **Select Visual Exploration**.
+44. In the KQL Database, the `SilverLoraWanTemperature` provides several options to work with the data by **clicking the 'three dots'** so this menu pops up. **Select Explore data**.
 
 ![alt text](assets/image_task05_step38.png)
 
-45. A new dialog is shown with table column details (like minimum and maximum values) to the right and rows in the Results pane. **Play around** with the Columns pane by providing 'deviceId' as column name.
+45. A new dialog is shown with table rows displayed. **Play around** with the Columns pane to toggle columns to display or not display.
 
 ![alt text](assets/image_task05_step39.png)
 
-46. **Change the visualization** to 'Line chart' or any other applicable visualization.
+46. **Select Visual** to view the data visually.
+
+47. **Select** 'Line chart' or any other applicable visualization.
 
 ![alt text](assets/image_task05_step40.png)
+![alt text](assets/image_task05_step41.png)
 
-We have seen how we can ingest LoraWan telemetry from multiple devices via one Eventstream. The telemetry is ingested into a Bronze LoraWan table in the KQL Database via an elaborate table mapping. The Eventhouse supports the Medallion Architecture via table Update policies. Here, a Silver LoraWan table with temperature sensor telemetry is filled, complete with the correct column types. We have also seen how we can use the no-code Visual Exploration to check the data in more detail. In the next paragraph, we will complete the temperature sensor data with data from a real-time weather data service.
+
+We have seen how we can ingest LoraWan telemetry from multiple devices via one Eventstream. The telemetry is ingested into a Bronze LoraWan table in the KQL Database via an elaborate table mapping. The Eventhouse supports the Medallion Architecture via table Update policies. Here, a Silver LoraWan table with temperature sensor telemetry is filled, complete with the correct column types. We have also seen how we can use the no-code Explore data to check the data in more detail. In the next paragraph, we will complete the temperature sensor data with data from a real-time weather data service.
 
 #### Lab 03.3 - Activator alerts based on high temperatures
 
@@ -1233,7 +1222,7 @@ SilverLoraWanTemperature
 
 ![alt text](assets/image_task06_step02.png)
 
-4. A new dialog is shown for setting alerts from a KQL Queryset. This will create an Activator afterwards. **Set the following values**. Run the KQL query `every 15 minutes`. We group the temperatures using the `applicationId` as the grouping field. We are interested in alerts only when `the temperature becomes greater than 30`, so we only get that message when it becomes greater than 30, not when it stays greater than 30 (This limits the amount of alert messages). The alert `should be an email`. (Notice that you potentially have no access to the email inbox due to the account used in this workshop.)
+4. A new dialog is shown for setting alerts from a KQL Queryset. This will create an Activator afterwards. **Set the following values**. Enter a Rule Name. Run the KQL query `every 15 minutes`. We group the temperatures using the `applicationId` as the grouping field. We are interested in alerts only when `the temperature becomes greater than 30`, so we only get that message when it becomes greater than 30, not when it stays greater than 30 (This limits the amount of alert messages). The alert `should be an email`. (Notice that you potentially have no access to the email inbox due to the account used in this workshop.)
 
 ![alt text](assets/image_task06_step03.png)
 
@@ -1531,7 +1520,7 @@ SilverLoraWanTemperature
 
 ![alt text](assets/image_task08_step02.png)
 
-5. Let's combine both gold queries so we have an overview of both LoraWan environmental sensor data and real-time weather data that offers both performance and enough details to add value. **Check out this query**.
+5. Let's combine both queries so we have an overview of both LoraWan environmental sensor data and real-time weather data that offers both performance and enough details to add value. **Check out this query**.
 
 ```
 let cutoff = ago(1h);
@@ -1550,15 +1539,22 @@ GoldLoraWanTemperature
 
 ![alt text](assets/image_task08_step03.png)
 
-7. Because this is an interesting query to share with others within your team, having access to the same Microsoft Fabric workspace, let's turn this into a Real-Time Dashboard. **Put the cursor in the last query** so it is selected. **Click** `Pin to dashboard`.
+7. Because this is an interesting query to share with others within your team, having access to the same Microsoft Fabric workspace, let's turn this into a Real-Time Dashboard. **Put the cursor in the last query** so it is selected. **Click** `Save to Dashboard `.
+
+8. select pinning to a new dashboard by selecting `To a new Dashboard`.
 
 ![alt text](assets/image_task08_step04.png)
 
-8. A dialog is shown. First, select pinning to a new dashboard by selecting `In a new dashboard`. Then, **Name** the new dashboard `RTD_FactoryEvents` and **name** the tile within the dashboard, showing this query `Factory temperature vs. Weather data`. Finally, **Create** the dashboard.
+9. **Name** the new dashboard `RTD_FactoryEvents`. Finally, **Create** the dashboard.
+
+10. **Click** Open Dashboard
+
+![alt text](assets/image_task08_step12.png)
+
 
 ![alt text](assets/image_task08_step05.png)
 
-9. A Real-Time dashboard is shown. Notice that we are in 'Viewing' mode. A `Time range` of the last hour is shown, just above the tile we added. This is a 'parameter' (actually two: start time and end time) that can be applied to tiles like a filter. But if we change this `Time range` dropdown, nothing happens. The query is not noticing the `Time range` parameter change yet. Let's fix this. First, we turn the 'Viewing' mode into **Editing** mode.
+10. A Real-Time dashboard is shown. Notice that we are in 'Viewing' mode. A `Time range` of the last hour is shown, just above the tile we added. This is a 'parameter' (actually two: start time and end time) that can be applied to tiles like a filter. But if we change this `Time range` dropdown, nothing happens. The query is not noticing the `Time range` parameter change yet. Let's fix this. First, we turn the 'Viewing' mode into **Editing** mode.
 
 ![alt text](assets/image_task08_step06.png)
 
@@ -1619,7 +1615,7 @@ Here, factory data from several 'silver' tables will be shared via OneLake so a 
 
 ![alt text](assets/image_task09_step01.png)
 
-2. Although this option offers Onlake access for all tables, we can also enable it per table. **Enable OneLake availability** for all three 'silver' tables `SilverEnergyMeterCurrent`, `SilverEnergyMeterVoltage`, and `SilverLoraWanTemperature`.
+2. Although this option offers Onelake access for all tables, we can also enable it per table. **Enable OneLake availability** for all three 'silver' tables `SilverEnergyMeterCurrent`, `SilverEnergyMeterVoltage`, and `SilverLoraWanTemperature`.
 
 ![alt text](assets/image_task09_step02.png)
 
@@ -1658,7 +1654,7 @@ Here, factory data from several 'silver' tables will be shared via OneLake so a 
 
 ![alt text](assets/image_task09_step09.png)
 
-8. Notice that KQL Database tables are available for selection. Those are the 'silver' tables we made available for OneLake.
+8. Notice that KQL Database tables are available for selection. Those are the 'silver' tables we made available for OneLake.If the checkbox is displayed for each table but you are unable to select, wait and retry, it can take a moment for the tables to become available to the shortcut.
 
 ![alt text](assets/image_task09_step11.png)
 
@@ -1714,180 +1710,12 @@ Here, factory data from several 'silver' tables will be shared via OneLake so a 
 
 In our Lakehouse, we have gathered both real-time data from sensors and contextual data.
 
-Let's dive into that data via a Digital Twin, available in Microsoft Fabric.
 
 <div class="important" data-title="Note">
 
 > This workshop will not dive deeper into the Lakehouse query endpoint where SQL statements can be used to query the tables inside this Lakehouse (and thus the underlying data sources). Check the Lakehouse documentation for more details.
 
 </div>
-
-#### Lab 03.7 (Bonus) - Adding a Digital Twin Builder
-
-A Digital Twin is a simplified representation, a model, based on real-life 'things' like devices, locations, buildings, vehicles, or even persons.
-
-![alt text](assets/rtiLabArchitecture_workshop_9.png)
-
-Here, we are building a Digital Twin where our production line is operated by several operators. We also gather realtime data for the production line and make that available in our Digital Twin too.
-
-1. First, to create an Digital Twin, **click** on the button `+ New Item` in the workspace.
-
-![alt text](assets/image_task10_step01.png)
-
-2. In the pop-up window 'New item', filter and select `Digital Twin Builder` while 'All items' is selected. Here we **filter** for items with `twin` in the name. **Select** the Lakehouse.
-
-![alt text](assets/image_task10_step02.png)
-
-3. In the dialog 'New Digital Twin Builder' **insert** `FactoryEvents_DTB` as the name and **click** on `Create`.
-
-![alt text](assets/image_task10_step03.png)
-
-4. Before we can add twins reflecting real-world objects and locations, we first need to add entities and relationships. We derive these 'domain model entities' from the context data we have: Production lines and Operators. **Add** our first entity.
-
-![alt text](assets/image_task10_step04.png)
-
-5. **Add** a `generic` entity type named `Productionline`.
-
-![alt text](assets/image_task10_step05.png)
-
-6. The 'Productionline' entity is created and all it has is a DisplayName as property. Let's add more properties by mapping it on context data. **Open** the `Mappings` tab and **click Add data**.
-
-![alt text](assets/image_task10_step06.png)
-
-7. A Lakehouse table must be selected, **press** the `Select Lakehouse table` button first. **Select** the `LH_FactoryEvents` in the Workspace and **Select** the `productionline` table.
-
-![alt text](assets/image_task10_step07.png)
-
-8. Once selected, **Select** this datasource.
-
-![alt text](assets/image_task10_step08.png)
-
-9. So, a non-timeseries datasource is chosen. We still need to provide a unique id and map additional properties. Let's start with the id. **Click** on the `pencil` next to 'Select an Id'.
-
-![alt text](assets/image_task10_step09.png)
-
-10. In the new dialog **select** the `id` column as unique ID column and **Press** the `OK` button.
-
-![alt text](assets/image_task10_step10.png)
-
-11. The next step is mapping _all_ properties which takes a bit more effort. First, **click** on the `pencil` next to 'Select an Id' to open the dialog. As seen above, an entity has a DisplayName property. **Map** it to the same `id` column because it values (eg. 'line1', 'line2') best describe the production lines.
-
-![alt text](assets/image_task10_step11.png)
-
-11. After that, **map** _all_ table columns to entity properties: `energyMeterId`, `grade`, `id`, `installationDate`, `isOperational`, `product`, and `tempSensorId`. **Keep** the proposed property names. **Click** the `checkbox` to acknowledge we do not want to change anything anymore. **Apply** the settings.
-
-![alt text](assets/image_task10_step12.png)
-
-12. **Save** the properties. Now, we have a full 'productionline' entity. The next step in the Digital Twin Builder environment is loading the actual Twins (the rows in the 'productionline' table) by hand or scheduled. These are also called 'Entity instances'. **Click** on the `Scheduling` tab.
-
-![alt text](assets/image_task10_step13.png)
-
-13. Here, we run the ingestion by hand. **Click** on the `Run` button. The ingestion is scheduled via a Digital Twin Builder flow in the background.
-
-![alt text](assets/image_task10_step14.png)
-
-14. Although not worked out, check the `Schedule flow`. **Create** a new flow and **name it** `productionlinescheduler`.
-
-![alt text](assets/image_task10_step15.png)
-
-15. A new dialog is shown to manage the scheduler. It should be clear that context data like a list of `production lines` or `operators` does not change often so a daily ingest at 01.00 AM would be perfect. At that moment, the Lakehouse table context is read and the Twins (or 'Entity instances') are updated. You can **Apply** one or **Discard** it for now.
-
-![alt text](assets/image_task10_step16.png)
-
-16. **Repeat** the last steps by **adding** a generic entity with an entity name `Operator` and using the the `LH_FactoryEvents` Lakehouse `operator` table as datasource. The 'Unique Id' is the operator table `Id` column. **Add** _all_ columns as properties. The 'DisplayName' is the operator table `Name` column. Finally, **run** the ingestion flow by hand for 'operator' entity instances. (Optionally, you can add a scheduler for this mapping too.)
-
-![alt text](assets/image_task10_step17.png)
-
-17. Next, add the relationship between the production lines and operators where multiple operators 'operate' on the same line. As seen in the table rows, each operator is related to one production line. **Click** on the `Add relationship` menu button while the `Operator` entity is **selected**.
-
-![alt text](assets/image_task10_step18.png)
-
-18. **Configure** the Operator `line` column and the Production line `Id` so a `Many operators per production line` relationship is created, having the name `Operates`. **Click** on the `Create` button.
-
-![alt text](assets/image_task10_step19.png)
-
-19. This results in this relationship between operator Twins and product line Twins. **Click** on the relation to select it.
-
-![alt text](assets/image_task10_step20.png)
-
-20. Each entity has twins via its own underlying Lakehouse table rows but a relationship must de based on the context of both entities. This is why relationships have their own scheduling. **Run** the update. Optionally, a scheduler can be added too. THe relationship scheduler normally runs _after_ the entity tables are updated via their own scheduler.
-
-![alt text](assets/image_task10_step21.png)
-
-21. We can check the execution of scheduled ingestion. **Click** on the `Manage operations` menu button.
-
-![alt text](assets/image_task10_step22.png)
-
-22. This leads to an overview of all Twin and relationship updates via the various flows. Details are available too. **Click** the `home` in the left upper corner to go back to the entities.
-
-![alt text](assets/image_task10_step23.png)
-
-23. Until now, we have experienced how we can shape both entities, relationships, and instantiate actual entity instances (Twins) by ingesting the context data (production lines, operators, etc). By adding more entities and relationships, your _ontology_ can grow larger and larger. But, we are still missing one important part and that is mapping 'timeseries data' to entities and updating the timeseries related properties with the underlying timeseries rows. We already have three OneLake shortcut tables being filled with Eventhouse table rows in the 'LH_FactoryEvents' Lakehouse. **Let's map** these three tables and relate them via columns in the production line table (eg. energyMeterId, tempSensorId). **Navigate** to the 'mapping' tab of the 'Productionline entity' and **click** `Add data`.
-
-![alt text](assets/image_task10_step24.png)
-
-24. In the new dialog, select the data source. As Lakehouse, **select** `LH_FactoryEvents` and as table, **select** `SilverLoraWanTemperature`. **Select** this data source.
-
-![alt text](assets/image_task10_step25.png)
-
-25. In this new 'SilverLoraWanTemperature' mapping Entity configuration, **Select** the `Timeseries properties` as 'property type'. With that we first **add** `mapped properties` in a new dialog. Because timeseries data is all about time-related observations, we need to **select** `timestamp` as `Timestamp` property. After that, **add** the other `applicationId`, `battery`, `deviceId`, `humidity`, `light`, and `temperature` entity properties. **Click** the `checkbox` to acknowledge the changes and **apply** the changes. The Mapped properties are set.
-
-![alt text](assets/image_task10_step26.png)
-
-26. Next, the 'Lorawan Temperature sensor' time-series data must be related to the `Production line` entity. For that, we **link** with an `entity property` 'tempSensorId' in a new dialog. In that dialog, select the 'Production line' entity `tempSensorId` at the top and link it by **selecting** the `deviceId` in the 'LoraWan Temperature' timeseries data. **Apply** the link.
-
-![alt text](assets/image_task10_step27.png)
-
-27. Finally, we need to setup a schedule for this LoraWan temperature timeseries data. **Select** the `scheduling` tab and **run** the flow to ingest the 'Productionline_SilverLoraWanTemperature_TimeSeries'. Notice that the on-demand digital twin builder flow has been successfully queued. In a real-life scenario, this flow should be scheduled eg. every 15 minutes to update the Digital Twin with the latest timeseries rows of related 'LoraWan Temperature devices'.
-
-![alt text](assets/image_task10_step28.png)
-
-28. We repeat the same 'Add LoraWan Temperature timeseries data' steps for the 'SilverEnergyMeterCurrent' shortcut table. First, **Add** the `SilverEnergyMeterCurrent` data source and **set** the 'property type' to `timeseries properties`. When mapping the properties, not all columns from the previous timeseries datasource mapping can be mapped here (like 'temperature'). Just ignore them if no mapping is applicable. When mapping is applicable, **map** the `deviceId` and `timestamp`. And, **add** new mappings for `building`, `city`, `company`, `country`, `currentValue`, `line`, and `unit`.
-
-![alt text](assets/image_task10_step29.png)
-
-29. **Link** the 'productionline' entity property `energyMeterId` to this timeseries data column `deviceId` in this realtime table.
-
-![alt text](assets/image_task10_step30.png)
-
-30. Finally, we repeat the same 'SilverEnergyMeterCurrent' steps for the 'SilverEnergyMeterVoltage' shortcut table. First, **Add** the `SilverEnergyMeterVoltage` data source and **set** the 'property type' to `timeseries properties`. Again, when mapping the properties, not all columns from the previous _two_ timeseries datasource mappings can be mapped here. So, **Map** the `building` and `city`, `company`, `country`, `deviceId`, `line`, `timestamp`, and `unit`. **Add** the new mapping `currentValue`.
-
-![alt text](assets/image_task10_step31.png)
-
-31. **Link** the 'productionline' entity property `energyMeterId` to this timeseries data column `deviceId` in this realtime table.
-
-![alt text](assets/image_task10_step32.png)
-
-32. We now have mapped all three Lakehouse tabled with real-time timeseries data to the 'production line'. **Run** the `schedule` for the second and third timeseries mapping too.
-
-![alt text](assets/image_task10_step33.png)
-
-33. **Wait** until the status of all ingestion pipelines is set to `completed`. Each pipeline should have run at least once succesfully so data and relations are in place.
-
-![alt text](assets/image_task10_step34.png)
-
-34. We have now set up both the Digital Twin 'ontology' and have the twins and relationships up and running. Until now, we have only played with the graph, not the twins themselves. In the menu bar, **click** `Explore entity instance`, or: Twins.
-
-![alt text](assets/image_task10_step35.png)
-
-35. In a new dialog, we see both the ingested Production lines and Operators. We can use a simple filter to get to some entity like 'line1'. There is also an `Advanced query` option.
-
-![alt text](assets/image_task10_step36.png)
-
-36. Although we will not dive deeper in this Advanced query, we see we can filter on entities with certain property values.
-
-![alt text](assets/image_task10_step37.png)
-
-37. **Select** Production line `line1`. In the 'Details' the current properties of this production line are shown.
-
-![alt text](assets/image_task10_step38.png)
-
-38. **Click** the `Charts` tab and **select** the `light` and `battery`, and `voltage` checkboxes. Notice that the latest data is shown and the realtime data from all three shortcut table are mixed (here we see that the light sensor of this production line tells us the factory got dark during the night, so probably no artificial light were lit during the night).
-
-![alt text](assets/image_task10_step39.png)
-
-This concludes our Digital Twin Builder experience. Notice that this Fabric item is still in preview. Still, we are already able to capture multiple data sources, both real-time data and contextual data, and related them into this 'ontology' model. This was all done without a single line of code. So users can get a good understanding of what the situation of each Twin is and how real-time data from multiple sources works together.
-
 
 ### 5. Lab 04 - OneLake Events
 
