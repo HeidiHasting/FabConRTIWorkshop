@@ -26,7 +26,7 @@ tags: javascript, api, node.js          # Required. Tags for filtering and searc
 
 ## Introduction
 
-This workshop is a hands-on, guided experience designed to help you build a complete analytics platform for streaming data using Microsoft Fabric Real-Time Intelligence. You’ll step into the shoes of a modern European sneaker manufacturer, YourCompany, and learn how to leverage Microsoft Fabric’s powerful components—including Eventstream, Eventhouse, KQL, Real-Time Dashboards, Activator, Digital Twin Builder, and Lakehouse—to ingest, process, analyze, and visualize real-time data from factories, logistics, and customer interactions.
+This workshop is a hands-on, guided experience designed to help you build a complete analytics platform for streaming data using Microsoft Fabric Real-Time Intelligence. You’ll step into the shoes of a modern European sneaker manufacturer, YourCompany, and learn how to leverage Microsoft Fabric’s powerful components—including Eventstream, Eventhouse, KQL, Real-Time Dashboards, Activator and Lakehouse—to ingest, process, analyze, and visualize real-time data from factories, logistics, and customer interactions.
 
 Through practical labs, you’ll:
 
@@ -34,7 +34,7 @@ Through practical labs, you’ll:
 - Monitor shipments and customer clickstream events.
 - Build a medallion architecture for scalable analytics.
 - Create actionable alerts and interactive dashboards.
-- Integrate contextual and timeseries data using Lakehouse and Digital Twin Builder.
+- Integrate contextual and timeseries data using Lakehouse and Eventhouse.
 - Whether you’re a beginner or an experienced practitioner, this workshop will equip you with the skills to design and implement real-time intelligence solutions for modern enterprises using Microsoft Fabric.
 
 
@@ -59,7 +59,7 @@ In this workshop, we will answer questions such as:
 
 Collecting real-time data (as observations, immutable events, facts) will add value to every modern enterprise. In this example, we look at a sneaker maker, but the same goes for logging, security audits, stock markets, shopping experience, vehicle data, etc.
 
-This workshop will walk you through the process of building an end-to-end [Real-Time Intelligence](https://blog.fabric.microsoft.com/en-us/blog/introducing-real-time-intelligence-in-microsoft-fabric) Solution in Microsoft Fabric, using the latest features like Azure IoT Operations integration, Digital Twins and Agents for YourCompany.
+This workshop will walk you through the process of building an end-to-end [Real-Time Intelligence](https://blog.fabric.microsoft.com/en-us/blog/introducing-real-time-intelligence-in-microsoft-fabric) Solution in Microsoft Fabric, using the latest features like Azure IoT Operations integration and Agents for YourCompany.
 
 You will learn how to:
 
@@ -72,7 +72,6 @@ You will learn how to:
 - Create real-time data transformations in Microsoft Fabric Eventhouse through the power of Kusto Query Language (KQL).
 - Create real-time visualizations using Real-Time Dashboards.
 - Build Activator actions as alerts on the streaming data.
-- Add a Digital Twin Builder representation.
 - Add a conversational Data Agent to talk to your data.
 
 All the **code** in this tutorial can be found here:
@@ -102,11 +101,7 @@ All the **code** in this tutorial can be found here:
 
 Monitoring shipments across multiple shipping partners is essential for YourCompany as it provides comprehensive visibility throughout the supply chain, minimizing the risk of delays or disruptions. It allows for the early detection of potential issues such as lost, delayed, or damaged packages, thereby safeguarding patient trust and satisfaction. Consistent tracking also enables performance benchmarking across carriers, ensuring cost efficiency and reliability. Moreover, real-time monitoring supports adherence to delivery SLAs and regulatory requirements, which are particularly critical in healthcare logistics. In addition, the data collected offers valuable insights to drive continuous improvement and informed decision-making in operations.
 
-### Lab 2: Real-time view into customer interactions
-
-Clickstream monitoring is vital for YourCompany as it provides detailed insights into how users interact with digital platforms, enabling a deeper understanding of customer behavior and preferences. By tracking user journeys in real time, it becomes possible to identify pain points, optimize website performance, and improve the overall user experience. This monitoring also highlights trends that inform data-driven decisions in marketing, product design, and service delivery. Furthermore, it supports the detection of unusual activity, strengthening security and compliance. Ultimately, the business value lies in driving higher engagement, improving conversion rates, and ensuring that digital services meet both customer needs and regulatory standards.
-
-### Lab 3: Connected Factory
+### Lab 2: Connected Factory
 
 In today's data-driven world, understanding factory behavior is essential for optimizing the production process for better Overall Equipment Effectiveness (OEE). This lab focuses on a simplified connected factory scenario that demonstrates how telemetry can be captured and analyzed using key data entities.
 
@@ -122,7 +117,7 @@ In the factory, several low-powered sensors are collecting environmental data li
 
 Next to the local environmental sensors, weather service information is collected for a specific location, available in Microsoft Fabric. This way, an even better understanding of the environment outside the factory is available, and a comparison with the sensors inside the factory can be made.
 
-### Lab 4: Event-driven actions to load and transform historical data
+### Lab 3: Event-driven actions to load and transform historical data
 
 There are scenarios where YourCompany may receive batch loads of historical transactions from shipping providers, typically delivered as CSV files, to support reconciliation and audit processes. Such files are often provided when there are system downtime incidents, delayed data transfers, or at agreed monthly or quarterly intervals for financial settlement. Processing these files is highly relevant, as it ensures that all shipments, costs, and delivery statuses align with internal records and customer commitments. This reconciliation helps identify discrepancies such as billing errors, unreported deliveries, or missing data, thereby avoiding financial leakage and strengthening vendor accountability. Additionally, maintaining an accurate historical record is essential for compliance, audit readiness, and for deriving insights that improve carrier performance, cost management, and overall supply chain integrity.
 
@@ -168,17 +163,6 @@ These are the tables and materialized views you will encounter today.
 | **ShippingNotifications** | Eventhouse table | Strongly typed tabl schema of raw XML shipping notifications |
 
 ##### Lab 2
-
-| Name                           | Origin                       | Description                                           |
-| ------------------------------ | ---------------------------- | ----------------------------------------------------- |
-| **RawClickstreamData**         | Eventhouse table             | Raw JSON clickstream data from the e-commerce website |
-| **Clickstream_AddToCart**      | Eventhouse table             | Filtered data for Add To Cart event types             |
-| **Clickstream_BrowseCategory** | Eventhouse table             | Filtered data for Browse Category event types         |
-| **Clickstream_CreateAccount**  | Eventhouse table             | Filtered data for Create Account event types          |
-| **Clickstream_Newsletter**     | Eventhouse table             | Filtered data for Newsletter event types              |
-| **Clickstream_ViewProduct**    | Eventhouse Materialized view | Filtered data for View Product event types            |
-
-##### Lab 3
 
 | Name                         | Origin                       | Description                                                                   |
 | ---------------------------- | ---------------------------- | ----------------------------------------------------------------------------- |
@@ -297,12 +281,6 @@ We will use a materialized view to create the weather data silver Layer in our m
 #### OneLake shortcut for Lakehouse
 
 In Microsoft Fabric, a OneLake shortcut is a way to access data from other locations without physically moving or copying it. It acts like a virtual link, allowing you to work with data as if it were stored locally within your Lakehouse, even if it resides elsewhere. This means you can integrate data from various sources into your Lakehouse without creating duplicates.
-
-#### Digital Twin Builder
-
-Fabric Digital Twin Builder is a low-code/no-code tool within Microsoft Fabric’s Real-Time Intelligence suite. It enables organizations to create digital twins—virtual representations of physical assets, processes, or environments—to optimize operations using data.
-
-It's key capabilities are ontology modeling (Define a shared vocabulary and structure to represent real-world systems), data mapping (Connect diverse data sources to the ontology, harmonizing IT and OT data), semantic relationships (Model dependencies and interactions between entities), and visualization & insights (Integrate with Power BI and Real-Time Dashboards for analytics and decision-making).
 
 #### Data Agent
 
