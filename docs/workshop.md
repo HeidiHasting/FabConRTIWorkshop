@@ -1,11 +1,11 @@
 ---
 published: true                        # Optional. Set to true to publish the workshop (default: false)
 type: workshop                          # Required.
-title: Fabric Real-Time Intelligence Workshop              # Required. Full title of the workshop
+title:Building Scalable Real-Time Solutions using Event-Driven Architectures with Microsoft Fabric              # Required. Full title of the workshop
 short_title: Fabric Real-Time Intelligence Workshop     # Optional. Short title displayed in the header
 description: In this technical workshop, you will build a complete analytics platform with streaming data using Microsoft Fabric Real-Time Intelligence components and other features of Microsoft Fabric. This is a proctor-led workshop in which each section is accompanied by a technical overview of Fabric RTI components.  # Required.
 level: Can be 'beginner', 'intermediate' or 'advanced'                         # Required. Can be 'beginner', 'intermediate' or 'advanced'
-authors: Devang Shah, Sander van de Velde, Frank Geisler, Edgar Cotte                               # Required. You can add as many authors as needed      
+authors: Devang Shah, Sander van de Velde, Frank Geisler, Edgar Cotte, Minni Walia, Heidi Hasting                      # Required. You can add as many authors as needed      
 contacts:                               # Required. Must match the number of authors
   - devsha@microsoft.com, sander.vandevelde@alten.nl
 duration_minutes: 360                    # Required. Estimated duration in minutes
@@ -97,11 +97,11 @@ All the **code** in this tutorial can be found here:
 
 ## Workshop Structure
 
-### Lab 1: Tracking and monitoring shipments
+### Lab 01: Tracking and monitoring shipments
 
 Monitoring shipments across multiple shipping partners is essential for YourCompany as it provides comprehensive visibility throughout the supply chain, minimizing the risk of delays or disruptions. It allows for the early detection of potential issues such as lost, delayed, or damaged packages, thereby safeguarding patient trust and satisfaction. Consistent tracking also enables performance benchmarking across carriers, ensuring cost efficiency and reliability. Moreover, real-time monitoring supports adherence to delivery SLAs and regulatory requirements, which are particularly critical in healthcare logistics. In addition, the data collected offers valuable insights to drive continuous improvement and informed decision-making in operations.
 
-### Lab 2: Connected Factory
+### Lab 02: Connected Factory
 
 In today's data-driven world, understanding factory behavior is essential for optimizing the production process for better Overall Equipment Effectiveness (OEE). This lab focuses on a simplified connected factory scenario that demonstrates how telemetry can be captured and analyzed using key data entities.
 
@@ -117,7 +117,7 @@ In the factory, several low-powered sensors are collecting environmental data li
 
 Next to the local environmental sensors, weather service information is collected for a specific location, available in Microsoft Fabric. This way, an even better understanding of the environment outside the factory is available, and a comparison with the sensors inside the factory can be made.
 
-### Lab 3: Event-driven actions to load and transform historical data
+### Lab 03: Event-driven actions to load and transform historical data
 
 There are scenarios where YourCompany may receive batch loads of historical transactions from shipping providers, typically delivered as CSV files, to support reconciliation and audit processes. Such files are often provided when there are system downtime incidents, delayed data transfers, or at agreed monthly or quarterly intervals for financial settlement. Processing these files is highly relevant, as it ensures that all shipments, costs, and delivery statuses align with internal records and customer commitments. This reconciliation helps identify discrepancies such as billing errors, unreported deliveries, or missing data, thereby avoiding financial leakage and strengthening vendor accountability. Additionally, maintaining an accurate historical record is essential for compliance, audit readiness, and for deriving insights that improve carrier performance, cost management, and overall supply chain integrity.
 
@@ -314,7 +314,7 @@ To complete the lab, you **must** have access to a [Microsoft Fabric](https://ww
 
 </div>
 
-### 1. Getting started
+### 0. Getting started
 
 #### 1. Log in to the Lab Environment
 
@@ -363,7 +363,7 @@ For this workshop, Fabric items relevant for this workshop have been pre-created
 
 ![alt text](assets/image_task02_step03a.png)
 
-### 2. Lab 01 - Shipping Events
+### 1. Lab 01 - Shipping Events
 
 YourCompany receives shipping events as XML files in an Azure storage account, from third party suppliers. It is imperative to capture and track these shipping events to ensure that any delays can be proactively detected and the customers can be notified instead of waiting to get the signal a few minutes/hours/days later.
 
@@ -462,7 +462,7 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 The incoming XML messages with shipping events are now made available in typed columns and available for querying.
 
 
-### 3. Lab 02 - Factory Events
+### 2. Lab 02 - Factory Events
 
 Let's ingest energy meter events with power consumption telemetry measured on the Edge. coming from the electromotor available in our demo factory.
 
@@ -488,7 +488,7 @@ You will see some erratic behaviour in the current consumption with the electric
 
 </div>
 
-1. **Open** the Eventstream named `ES_EnergyMeter`, already provided in the 'Lab 03 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
+1. **Open** the Eventstream named `ES_EnergyMeter`, already provided in the 'Lab 02 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
 
    ![alt text](assets/image_task04_step03.png)
 
@@ -790,7 +790,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 </div>
 
-1. **Open** the Eventstream named `ES_LoraWanStream`, already provided in the 'Lab 03 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
+1. **Open** the Eventstream named `ES_LoraWanStream`, already provided in the 'Lab 02 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
 
 ![alt text](assets/image_task05_step03.png)
 
@@ -1089,7 +1089,7 @@ In this section, we will add real-time weather data events. These events are str
 
 ![alt text](assets/rtiLabArchitecture_workshop_7.png)
 
-1. **Open** the Eventstream named `ES_WeatherData`, already provided in the 'Lab 03 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
+1. **Open** the Eventstream named `ES_WeatherData`, already provided in the 'Lab 02 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Connect data sources`.
 
 ![alt text](assets/image_task07_step03.png)
 
@@ -1375,15 +1375,15 @@ GoldLoraWanTemperature
 
 ![alt text](assets/image_task08_step05.png)
 
-10. A Real-Time dashboard is shown. Notice that we are in 'Viewing' mode. A `Time range` of the last hour is shown, just above the tile we added. This is a 'parameter' (actually two: start time and end time) that can be applied to tiles like a filter. But if we change this `Time range` dropdown, nothing happens. The query is not noticing the `Time range` parameter change yet. Let's fix this. First, we turn the 'Viewing' mode into **Editing** mode.
+11. A Real-Time dashboard is shown. Notice that we are in 'Viewing' mode. A `Time range` of the last hour is shown, just above the tile we added. This is a 'parameter' (actually two: start time and end time) that can be applied to tiles like a filter. But if we change this `Time range` dropdown, nothing happens. The query is not noticing the `Time range` parameter change yet. Let's fix this. First, we turn the 'Viewing' mode into **Editing** mode.
 
 ![alt text](assets/image_task08_step06.png)
 
-10. The tile supports two ways to edit it. **Edit** the tile.
+12. The tile supports two ways to edit it. **Edit** the tile.
 
 ![alt text](assets/image_task08_step07.png)
 
-11. The original query is shown with the 'hard-coded' one-hour cutoff. **Replace the original query** with the following version. Notice that we now use the `_startTime and _endTime` parameters. These parameters are available by default, but we can add additional parameters based on queries or hard-coded values (out of scope in this workshop). Notice that the `render` part of the query is also removed.
+13. The original query is shown with the 'hard-coded' one-hour cutoff. **Replace the original query** with the following version. Notice that we now use the `_startTime and _endTime` parameters. These parameters are available by default, but we can add additional parameters based on queries or hard-coded values (out of scope in this workshop). Notice that the `render` part of the query is also removed.
 
 ```
 GoldLoraWanTemperature
@@ -1396,23 +1396,23 @@ GoldLoraWanTemperature
 | order by timestamp asc, applicationId
 ```
 
-12. If you **run** the updated query and **change the Time range** to eg. 30 minutes, you see the time span of the line chart is updated automatically. Press **Apply changes** for the tile. **Save** the Dashboard changes. Notice that other parameters, like a filter of the available devices, could be added (out of scope in this workshop). Before we change the mode back to 'Viewing', we alter the Auto refresh. **Select** the `Manage tab`.
+14. If you **run** the updated query and **change the Time range** to eg. 30 minutes, you see the time span of the line chart is updated automatically. Press **Apply changes** for the tile. **Save** the Dashboard changes. Notice that other parameters, like a filter of the available devices, could be added (out of scope in this workshop). Before we change the mode back to 'Viewing', we alter the Auto refresh. **Select** the `Manage tab`.
 
 ![alt text](assets/image_task08_step08.png)
 
-13. **Open** the `Auto refresh` dialog. You need to **enable Auto refresh** and **set the default refresh rate** to `continuous`.
+15. **Open** the `Auto refresh` dialog. You need to **enable Auto refresh** and **set the default refresh rate** to `continuous`.
 
 ![alt text](assets/image_task08_step09.png)
 
-14. **Apply** the Auto refresh settings. You return to the Dashboard, still in 'Editing' mode. **Save** the changes again. **Change** the 'mode' back to `Viewing`. The tile is now showing the temperatures again. Let's check the interaction with the parameter. **Change it into 'last 30 minutes'**.
+16. **Apply** the Auto refresh settings. You return to the Dashboard, still in 'Editing' mode. **Save** the changes again. **Change** the 'mode' back to `Viewing`. The tile is now showing the temperatures again. Let's check the interaction with the parameter. **Change it into 'last 30 minutes'**.
 
 ![alt text](assets/image_task08_step10.png)
 
-15. Notice the Time range parameter dropdown is working now, fewer values are shown. We also notice that the Real-Time dashboard is now updated in real-time. **Click** the `Share` button.
+17. Notice the Time range parameter dropdown is working now, fewer values are shown. We also notice that the Real-Time dashboard is now updated in real-time. **Click** the `Share` button.
 
 ![alt text](assets/image_task08_step11.png)
 
-16. A pop-up dialog is shown, offering several ways to share this dashboard with other People in your organization. You can eg. copy a link and share it with them or share the link via email or Teams (out of scope for this workshop). Once you are ready with checking out this dialog, **cancel** it by clicking the cross in the upper right corner.
+18. A pop-up dialog is shown, offering several ways to share this dashboard with other People in your organization. You can eg. copy a link and share it with them or share the link via email or Teams (out of scope for this workshop). Once you are ready with checking out this dialog, **cancel** it by clicking the cross in the upper right corner.
 
 Queries we want to share with others are the ones we share in Real-Time Dashboards. We can make the tiles more interactive with the standard time span parameters or with custom parameters (based on queries or just hard-coded values).
 
@@ -1527,7 +1527,7 @@ In our Lakehouse, we have gathered both real-time data from sensors and contextu
 
 </div>
 
-### 4. Lab 03 - OneLake Events
+### 3. Lab 03 - OneLake Events
 
 YourCompany receives from its shipping partners files containing all the shipments that have occured in that month. Since these files can come at any time and from many different providers, we will create an event driven workflow so that the files are processed and can be queried as soon as they arrive.
 
@@ -1626,7 +1626,7 @@ These shipments are ingested via the Real-Time Hub experience.
 
 ![alt text](assets/image_task11_step23.png)
 
-24. **Navigate** back to your workspace, go to `Lab 04 - OneLake Events` folder.
+24. **Navigate** back to your workspace, go to `Lab 03 - OneLake Events` folder.
 
 ![alt text](assets/image_task11_step24.png)
 
@@ -1698,11 +1698,11 @@ These shipments are ingested via the Real-Time Hub experience.
 
 <div class="important" data-title="Note">
 
-> The flow seen in this Appendix A provides simulated energy meter data for Lab 03.1. If you are following this workshop as provided in the repo, start generating simulated Factory energy meter telemetry.
+> The flow seen in this Appendix A provides simulated energy meter data for Lab 02.1. If you are following this workshop as provided in the repo, start generating simulated Factory energy meter telemetry.
 
 </div>
 
-1. **Open** the Eventstream named `ES_EnergyMeter`, already provided in the 'Lab 03 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Use custom endpoint`.
+1. **Open** the Eventstream named `ES_EnergyMeter`, already provided in the 'Lab 02 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Use custom endpoint`.
 
 ![alt text](assets/image_labA1_step01.png)
 
@@ -1734,7 +1734,7 @@ These shipments are ingested via the Real-Time Hub experience.
 
 ![alt text](assets/image_labA1_step08.png)
 
-9. **Navigate** back to the `root level` of your workspace and go back to the folder `Lab 03 Factory events`.
+9. **Navigate** back to the `root level` of your workspace and go back to the folder `Lab 02 Factory events`.
 
 ![alt text](assets/image_labA1_step09.png)
 
@@ -1754,17 +1754,17 @@ These shipments are ingested via the Real-Time Hub experience.
 
 ![alt text](assets/image_labA1_step13.png)
 
-Please continue at step 6 of Lab 03 Factory events.
+Please continue at step 6 of Lab 02 Factory events.
 
 ### Appendix B - Simulating LoRaWAN telemetry
 
 <div class="important" data-title="Note">
 
-> The flow seen in this Appendix B provides simulated LoRaWAN data for Lab 03.2. If you are following this workshop as provided in the repo, start generating simulated LoRaWAN telemetry.
+> The flow seen in this Appendix B provides simulated LoRaWAN data for Lab 02.2. If you are following this workshop as provided in the repo, start generating simulated LoRaWAN telemetry.
 
 </div>
 
-1. **Open** the Eventstream named `ES_LoRaWanStream`, already provided in the 'Lab 03 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Use custom endpoint`.
+1. **Open** the Eventstream named `ES_LoRaWanStream`, already provided in the 'Lab 02 Factory events' folder of your workspace. On the Screen 'Design a flow to ingest, transform, and route streaming events' **click** on `Use custom endpoint`.
 
 ![alt text](assets/image_labA2_step01.png)
 
@@ -1796,7 +1796,7 @@ Please continue at step 6 of Lab 03 Factory events.
 
 ![alt text](assets/image_labA2_step08.png)
 
-9. **Navigate** back to the `root level` of your workspace and go back to the folder `Lab 03 Factory events`.
+9. **Navigate** back to the `root level` of your workspace and go back to the folder `Lab 02 Factory events`.
 
 ![alt text](assets/image_labA2_step09.png)
 
@@ -1816,7 +1816,7 @@ Please continue at step 6 of Lab 03 Factory events.
 
 ![alt text](assets/image_labA2_step13.png)
 
-Please continue at step 6 of Lab 03 LoRaWAN events.
+Please continue at step 6 of Lab 02 LoRaWAN events.
 
 
 ---
