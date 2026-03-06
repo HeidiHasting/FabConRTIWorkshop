@@ -377,86 +377,85 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 
 ![alt text](assets/image_lab01_step02.png)
 
-2. (B) In the eventhouse main page, **turn on** OneLake Availability
+3. (B) In the eventhouse main page, **turn on** OneLake Availability
 
 ![alt text](assets/OneLake-Availability.png)
 
-3. **Click** `Get Data` (via the three dots) and **Select** `Azure Storage` as the data source for ingesting data.
+4. **Click** `Get Data` (via the three dots) and **Select** `Azure Storage` as the data source for ingesting data.
 
 ![alt text](assets/image_lab01_step03.png)
 
-4. A dialog is shown. **Create** a new table `RawShippingMsgs`. Pay attention to this table name, it is reused later on (Copy the table name as-is else the subsequent scripts will fail to execute).
+5. A dialog is shown. **Create** a new table `RawShippingMsgs`. Pay attention to this table name, it is reused later on (Copy the table name as-is else the subsequent scripts will fail to execute).
 
 ![alt text](assets/image_lab01_step04.png)
 
-5. **Keep the defaults** of Continuous Ingestion as `On` and `Connect to a storage account`. **Select** `FabCon26 ATL Subscription` as the Subscription.
+6. **Keep the defaults** of Continuous Ingestion as `On` and `Connect to a storage account`. **Select** `FabCon26 ATL Subscription` as the Subscription.
 
 ![alt text](assets/image_lab01_step05.png)
 
-6. **Select** `fabconatlanta2026rtisa` as the Blob storage account.
+7. **Select** `fabconatlanta2026rtisa` as the Blob storage account.
 
 ![alt text](assets/image_lab01_step06.png)
 
-7. **Select** `rawshippingmsgs` as the container.
+8. **Select** `rawshippingmsgs` as the container.
 
 ![alt text](assets/image_lab01_step07.png)
 
-
-13. **Rename** the 'Eventstream Name' to `ES_ShippingEvents`.
+9. **Rename** the 'Eventstream Name' to `ES_ShippingEvents`.
 
 ![alt text](assets/image_lab01_step13.png)
 
-14. **Click** `Next`.
+10. **Click** `Next`.
 
 ![alt text](assets/image_lab01_step14.png)
 
-15. **Notice** the preview of a single XML message retrieved from the storage account.
+11. **Notice** the preview of a single XML message retrieved from the storage account.
 
 ![alt text](assets/image_lab01_step15.png)
 
-16. **Click** `Finish`.
+12. **Click** `Finish`.
 
 ![alt text](assets/image_lab01_step16.png)
 
-17. After clicking 'Finish', Eventhouse will establish a connection with the storage account and will read XML files as soon as they are created in the storage account. Let the processing continue as it completes the required background processes. You can **click** `Close` and it will still continue background processing.
+13. After clicking 'Finish', Eventhouse will establish a connection with the storage account and will read XML files as soon as they are created in the storage account. Let the processing continue as it completes the required background processes. You can **click** `Close` and it will still continue background processing.
 
 ![alt text](assets/image_lab01_step17.png)
 
-18. In KQL Database tree, you will notice the table `RawShippingMsgs`.
+14. In KQL Database tree, you will notice the table `RawShippingMsgs`.
 
 ![alt text](assets/image_lab01_step18.png)
 
-19. **Click** on the table to see the preview of the messages.
+15. **Click** on the table to see the preview of the messages.
 
 ![alt text](assets/image_lab01_step19.png)
 
-20. **Click** on 'EH_YCSneakerEventStore_queryset', which is the default query editor of the Eventhouse.
+16. **Click** on 'EH_YCSneakerEventStore_queryset', which is the default query editor of the Eventhouse.
 
 ![alt text](assets/image_lab01_step20.png)
 
-21. **Navigate** to the github repo of this workshop [Shipping Events KQL](https://aka.ms/FabConKQL1Url) in a separate tab.
+17. **Navigate** to the github repo of this workshop [Shipping Events KQL](https://aka.ms/FabConKQL1Url) in a separate tab.
 
 ![alt text](assets/image_lab01_step21.png)
 
-22. **Copy** the (raw) KQL code from this file in the repo.
+18. **Copy** the (raw) KQL code from this file in the repo.
 
 ![alt text](assets/image_lab01_step22.png)
 
-23. **Paste** the copied KQL code in the `EH_YCSneakerEventStore_queryset`.
+19. **Paste** the copied KQL code in the `EH_YCSneakerEventStore_queryset`.
 
 ![alt text](assets/image_lab01_step23.png)
 
-24. **Rename** the tab as `Shipping Events`. You will be creating more tabs so naming them will be helpful.
+20. **Rename** the tab as `Shipping Events`. You will be creating more tabs so naming them will be helpful.
 
 ![alt text](assets/image_lab01_step24_1.png)
 
 ![alt text](assets/image_lab01_step24_2.png)
 
-25. **Select** the entire script in the KQL Queryset tab page and click `Run`. 
+21. **Select** the entire script in the KQL Queryset tab page and click `Run`. 
 
 ![alt text](assets/image_lab01_step25.png)
 
-26. **Check** the output as shown in the image below. A new function, table and an update policy must have been created in your workspace.
+22. **Check** the output as shown in the image below. A new function, table and an update policy must have been created in your workspace.
 
 ![alt text](assets/image_lab01_step26.png)
 
@@ -612,7 +611,7 @@ You will see some erratic behaviour in the current consumption with the electric
 
 ![alt text](assets/image_task04_step35.png)
 
-32. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
+31. Each KQL Database comes with a KQL Queryset already. **See** that the KQL Queryset of the 'EH_YCSneakerEventStore' KQL Database in the 'EH_YCSneakerEventStore' Eventhouse has opened. A KQL Queryset offers a sandbox for querying the data using the Kusto Query Language (KQL). We will also create extra logic using KQL commands. We will create a silver voltage table `SilverEnergyMeterVoltage` and fill it with typed voltage rows by creating a Table update policy based on the `BronzeEnergyMeter`. The typed silver table data is copied from the bronze table every time new bronze table rows arrive. The conversion part is done via the function `ParseVoltageTelemetry`. **Execute these three KQL commands separately**. Do this by placing them all in the KQL Queryset, putting the cursor in each command, and running it. Do this for **one after another**.
 
 ```
 // query 1/3 - Create a table
@@ -644,18 +643,18 @@ SilverEnergyMeterVoltage
 policy update @'[{"Source": "BronzeEnergyMeter", "Query": "ParseVoltageTelemetry", "IsEnabled" : true, "IsTransactional": true }]'
 ```
 
-35. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and new rows start to occur in the 'SilverEnergyMeterVoltage' table).
+32. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and new rows start to occur in the 'SilverEnergyMeterVoltage' table).
 
 ```
 SilverEnergyMeterVoltage
 | take 10
 ```
 
-36. The result will **show** a list of ten random rows from the `SilverEnergyMeterVoltage` table via the 'take' statement.
+33. The result will **show** a list of ten random rows from the `SilverEnergyMeterVoltage` table via the 'take' statement.
 
 ![alt text](assets/image_task04_step36.png)
 
-37. **Repeat** this also for the other new silver table `SilverEnergyMeterCurrent`. Again, **execute these three KQL commands separately**, again one after another.
+34. **Repeat** this also for the other new silver table `SilverEnergyMeterCurrent`. Again, **execute these three KQL commands separately**, again one after another.
 
 ```
 // query 1/3 - Create a table
@@ -687,18 +686,18 @@ SilverEnergyMeterCurrent
 policy update @'[{"Source": "BronzeEnergyMeter", "Query": "ParseCurrentTelemetry", "IsEnabled" : true, "IsTransactional": true }]'
 ```
 
-38. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and table rows arrive in the 'SilverEnergyMeterCurrent' table).
+35. If no errors are shown, test the Table update policy. **Execute this query** (Notice that it can take a moment before the update policy is up and running and table rows arrive in the 'SilverEnergyMeterCurrent' table).
 
 ```
 SilverEnergyMeterCurrent
 | take 10
 ```
 
-39. The result will show a list of ten random rows from the `SilverEnergyMeterCurrent` table via the 'take' statement.
+36. The result will show a list of ten random rows from the `SilverEnergyMeterCurrent` table via the 'take' statement.
 
 ![alt text](assets/image_task04_step37.png)
 
-40. Now, we have typed columns in both tables, we can do some calculations. Did you notice we split the Universal Namespace (UNS) column and turned the values into doubles? **Execute the following query**. It will join the tables with typed voltage values and typed current values based on a time difference of less than a few seconds (because the telemetry arrives every few seconds). So the right combination is used to calculate the wattage used by the electromotor (when running). We only look at the latest ten entries.
+37. Now, we have typed columns in both tables, we can do some calculations. Did you notice we split the Universal Namespace (UNS) column and turned the values into doubles? **Execute the following query**. It will join the tables with typed voltage values and typed current values based on a time difference of less than a few seconds (because the telemetry arrives every few seconds). So the right combination is used to calculate the wattage used by the electromotor (when running). We only look at the latest ten entries.
 
 ```
 SilverEnergyMeterCurrent
@@ -714,11 +713,11 @@ SilverEnergyMeterCurrent
 | order by timestamp desc
 ```
 
-41. The result will be a table with a `wattage` calculated from the current and voltage.
+38. The result will be a table with a `wattage` calculated from the current and voltage.
 
 ![alt text](assets/image_task04_step38.png)
 
-42. How about rendering the values? **Execute this query** with a 'render' statement.
+39. How about rendering the values? **Execute this query** with a 'render' statement.
 
 ```
 SilverEnergyMeterCurrent
@@ -734,39 +733,39 @@ SilverEnergyMeterCurrent
 | render timechart
 ```
 
-43. The result will be a chart with a `wattage` calculated from the current and voltage.
+40. The result will be a chart with a `wattage` calculated from the current and voltage.
 
 ![alt text](assets/image_task04_step39.png)
 
-44. Here, the electric motor just started, resulting in a large spike due to the huge amount of current needed to get it running. The measurement was taken just at the right moment.
+41. Here, the electric motor just started, resulting in a large spike due to the huge amount of current needed to get it running. The measurement was taken just at the right moment.
 
 ![alt text](assets/image_task04_step40.png)
 
-45. It must be clear that all new BronzeEnergyMeter rows are duplicated and distributed over the two Silver tables. If you are confident this works as expected, the retention time of the bronze table can be reduced so the database stores less data. **Change the retention time** to one hour. This is not a soft deletion.
+42. It must be clear that all new BronzeEnergyMeter rows are duplicated and distributed over the two Silver tables. If you are confident this works as expected, the retention time of the bronze table can be reduced so the database stores less data. **Change the retention time** to one hour. This is not a soft deletion.
 
 ```
 .alter-merge table BronzeEnergyMeter policy retention softdelete = 1h recoverability = disabled
 ```
 
-46. If you **count the number of rows** in both bronze table with eg. `BronzeEnergyMeter | count` and silver tables at the end of this workshop, you will notice that the oldest rows in the bronze table will span one hour. This is not an exact life span; the process behind removing outdated rows has a very low priority, but it will be executed for sure.
+43. If you **count the number of rows** in both bronze table with eg. `BronzeEnergyMeter | count` and silver tables at the end of this workshop, you will notice that the oldest rows in the bronze table will span one hour. This is not an exact life span; the process behind removing outdated rows has a very low priority, but it will be executed for sure.
 
-47. One more thing. Do you remember that Derived stream in the Eventstream? Let's **visit** the `Real-Time Hub` to check out what this looks like for other users. On the portal menu at the left side of your Fabric portal, **select** `Real-Time`.
+44. One more thing. Do you remember that Derived stream in the Eventstream? Let's **visit** the `Real-Time Hub` to check out what this looks like for other users. On the portal menu at the left side of your Fabric portal, **select** `Real-Time`.
 
 ![alt text](assets/image_task04_step41.png)
 
-48. If a Welcome dialog is shown, **press** `Get started` (leave the checkbox unchecked to take the tour later on).
+45. If a Welcome dialog is shown, **press** `Get started` (leave the checkbox unchecked to take the tour later on).
 
 ![alt text](assets/image_task04_step42.png)
 
-49. The Real-Time Hub shows all data streams accessible to you. It even offers a starting point for creating new ones. Our derived stream `EnergyMeterDeriveStream` is listed here too.
+46. The Real-Time Hub shows all data streams accessible to you. It even offers a starting point for creating new ones. Our derived stream `EnergyMeterDeriveStream` is listed here too.
 
 ![alt text](assets/image_task04_step43.png)
 
-50. The `EnergyMeterDeriveStream` offers a 'Preview data' option. **Click on the eye** next to it.
+47. The `EnergyMeterDeriveStream` offers a 'Preview data' option. **Click on the eye** next to it.
 
 ![alt text](assets/image_task04_step44.png)
 
-51. A new dialog shows both a chart with the number of ingested rows over the last six hours at the top and a preview of rows at the bottom.
+48. A new dialog shows both a chart with the number of ingested rows over the last six hours at the top and a preview of rows at the bottom.
 
 ![alt text](assets/image_task04_step45.png)
 
@@ -802,7 +801,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 ![alt text](assets/image_task05_step04.png)
 
-3. In the dialog 'Configure connection settings' **Select** `FabConEU2025 Lorawan Connection` for the combobox 'Connection' and **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `workshopuser49`. **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
+3. In the dialog 'Configure connection settings' **Select** `FabConAtlantaLorawanConnection` for the combobox 'Connection' and **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `EVNTAttendee1`. **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
 
 ![alt text](assets/image_task05_step05.png)
 
