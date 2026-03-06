@@ -26,7 +26,7 @@ tags: javascript, api, node.js          # Required. Tags for filtering and searc
 
 ## Introduction
 
-This workshop is a hands-on, guided experience designed to help you build a complete analytics platform for streaming data using Microsoft Fabric Real-Time Intelligence. You’ll step into the shoes of a modern European sneaker manufacturer, YourCompany, and learn how to leverage Microsoft Fabric’s powerful components—including Eventstream, Eventhouse, KQL, Real-Time Dashboards, Activator, Digital Twin Builder, and Lakehouse—to ingest, process, analyze, and visualize real-time data from factories, logistics, and customer interactions.
+This workshop is a hands-on, guided experience designed to help you build a complete analytics platform for streaming data using Microsoft Fabric Real-Time Intelligence. You’ll step into the shoes of a modern European sneaker manufacturer, YourCompany, and learn how to leverage Microsoft Fabric’s powerful components—including Eventstream, Eventhouse, KQL, Real-Time Dashboards, Activator and Lakehouse—to ingest, process, analyze, and visualize real-time data from factories, logistics, and customer interactions.
 
 Through practical labs, you’ll:
 
@@ -34,7 +34,7 @@ Through practical labs, you’ll:
 - Monitor shipments and customer clickstream events.
 - Build a medallion architecture for scalable analytics.
 - Create actionable alerts and interactive dashboards.
-- Integrate contextual and timeseries data using Lakehouse and Digital Twin Builder.
+- Integrate contextual and timeseries data using Lakehouse and Eventhouse.
 - Whether you’re a beginner or an experienced practitioner, this workshop will equip you with the skills to design and implement real-time intelligence solutions for modern enterprises using Microsoft Fabric.
 
 
@@ -59,7 +59,7 @@ In this workshop, we will answer questions such as:
 
 Collecting real-time data (as observations, immutable events, facts) will add value to every modern enterprise. In this example, we look at a sneaker maker, but the same goes for logging, security audits, stock markets, shopping experience, vehicle data, etc.
 
-This workshop will walk you through the process of building an end-to-end [Real-Time Intelligence](https://blog.fabric.microsoft.com/en-us/blog/introducing-real-time-intelligence-in-microsoft-fabric) Solution in Microsoft Fabric, using the latest features like Azure IoT Operations integration, Digital Twins and Agents for YourCompany.
+This workshop will walk you through the process of building an end-to-end [Real-Time Intelligence](https://blog.fabric.microsoft.com/en-us/blog/introducing-real-time-intelligence-in-microsoft-fabric) Solution in Microsoft Fabric, using the latest features like Azure IoT Operations integration and Agents for YourCompany.
 
 You will learn how to:
 
@@ -72,7 +72,6 @@ You will learn how to:
 - Create real-time data transformations in Microsoft Fabric Eventhouse through the power of Kusto Query Language (KQL).
 - Create real-time visualizations using Real-Time Dashboards.
 - Build Activator actions as alerts on the streaming data.
-- Add a Digital Twin Builder representation.
 - Add a conversational Data Agent to talk to your data.
 
 All the **code** in this tutorial can be found here:
@@ -102,11 +101,7 @@ All the **code** in this tutorial can be found here:
 
 Monitoring shipments across multiple shipping partners is essential for YourCompany as it provides comprehensive visibility throughout the supply chain, minimizing the risk of delays or disruptions. It allows for the early detection of potential issues such as lost, delayed, or damaged packages, thereby safeguarding patient trust and satisfaction. Consistent tracking also enables performance benchmarking across carriers, ensuring cost efficiency and reliability. Moreover, real-time monitoring supports adherence to delivery SLAs and regulatory requirements, which are particularly critical in healthcare logistics. In addition, the data collected offers valuable insights to drive continuous improvement and informed decision-making in operations.
 
-### Lab 2: Real-time view into customer interactions
-
-Clickstream monitoring is vital for YourCompany as it provides detailed insights into how users interact with digital platforms, enabling a deeper understanding of customer behavior and preferences. By tracking user journeys in real time, it becomes possible to identify pain points, optimize website performance, and improve the overall user experience. This monitoring also highlights trends that inform data-driven decisions in marketing, product design, and service delivery. Furthermore, it supports the detection of unusual activity, strengthening security and compliance. Ultimately, the business value lies in driving higher engagement, improving conversion rates, and ensuring that digital services meet both customer needs and regulatory standards.
-
-### Lab 3: Connected Factory
+### Lab 2: Connected Factory
 
 In today's data-driven world, understanding factory behavior is essential for optimizing the production process for better Overall Equipment Effectiveness (OEE). This lab focuses on a simplified connected factory scenario that demonstrates how telemetry can be captured and analyzed using key data entities.
 
@@ -122,7 +117,7 @@ In the factory, several low-powered sensors are collecting environmental data li
 
 Next to the local environmental sensors, weather service information is collected for a specific location, available in Microsoft Fabric. This way, an even better understanding of the environment outside the factory is available, and a comparison with the sensors inside the factory can be made.
 
-### Lab 4: Event-driven actions to load and transform historical data
+### Lab 3: Event-driven actions to load and transform historical data
 
 There are scenarios where YourCompany may receive batch loads of historical transactions from shipping providers, typically delivered as CSV files, to support reconciliation and audit processes. Such files are often provided when there are system downtime incidents, delayed data transfers, or at agreed monthly or quarterly intervals for financial settlement. Processing these files is highly relevant, as it ensures that all shipments, costs, and delivery statuses align with internal records and customer commitments. This reconciliation helps identify discrepancies such as billing errors, unreported deliveries, or missing data, thereby avoiding financial leakage and strengthening vendor accountability. Additionally, maintaining an accurate historical record is essential for compliance, audit readiness, and for deriving insights that improve carrier performance, cost management, and overall supply chain integrity.
 
@@ -168,17 +163,6 @@ These are the tables and materialized views you will encounter today.
 | **ShippingNotifications** | Eventhouse table | Strongly typed tabl schema of raw XML shipping notifications |
 
 ##### Lab 2
-
-| Name                           | Origin                       | Description                                           |
-| ------------------------------ | ---------------------------- | ----------------------------------------------------- |
-| **RawClickstreamData**         | Eventhouse table             | Raw JSON clickstream data from the e-commerce website |
-| **Clickstream_AddToCart**      | Eventhouse table             | Filtered data for Add To Cart event types             |
-| **Clickstream_BrowseCategory** | Eventhouse table             | Filtered data for Browse Category event types         |
-| **Clickstream_CreateAccount**  | Eventhouse table             | Filtered data for Create Account event types          |
-| **Clickstream_Newsletter**     | Eventhouse table             | Filtered data for Newsletter event types              |
-| **Clickstream_ViewProduct**    | Eventhouse Materialized view | Filtered data for View Product event types            |
-
-##### Lab 3
 
 | Name                         | Origin                       | Description                                                                   |
 | ---------------------------- | ---------------------------- | ----------------------------------------------------------------------------- |
@@ -297,12 +281,6 @@ We will use a materialized view to create the weather data silver Layer in our m
 #### OneLake shortcut for Lakehouse
 
 In Microsoft Fabric, a OneLake shortcut is a way to access data from other locations without physically moving or copying it. It acts like a virtual link, allowing you to work with data as if it were stored locally within your Lakehouse, even if it resides elsewhere. This means you can integrate data from various sources into your Lakehouse without creating duplicates.
-
-#### Digital Twin Builder
-
-Fabric Digital Twin Builder is a low-code/no-code tool within Microsoft Fabric’s Real-Time Intelligence suite. It enables organizations to create digital twins—virtual representations of physical assets, processes, or environments—to optimize operations using data.
-
-It's key capabilities are ontology modeling (Define a shared vocabulary and structure to represent real-world systems), data mapping (Connect diverse data sources to the ontology, harmonizing IT and OT data), semantic relationships (Model dependencies and interactions between entities), and visualization & insights (Integrate with Power BI and Real-Time Dashboards for analytics and decision-making).
 
 #### Data Agent
 
@@ -488,164 +466,11 @@ Notice the ShippingEvents table is empty, this is because an update policy is on
 ```.append RawShippingMsgs <| RawShippingMsgs```
 
 
-
-
-
-### 3. Lab 02 - Clickstream Events
-
-YourCompany's website is the primary channel for customers to discover and buy its sneakers. Capturing, analysing and learning customer's behaviour from its website is very critical to continuously improve the customer engagement, adapt and improve social media marketing strategies as well as plan marketing events in proportion to the Return-on-Investment offered by the different digital channels.
-
-The clicks will be generated via a generator running in a workbook.
-
-1. **Navigate** to the `root level` of your workspace.
-
-![alt text](assets/image_lab02_step01.png)
-
-2. **Navigate** to the folder `Lab 02 Clickstream Events`.
-
-![alt text](assets/image_lab02_step02.png)
-
-3. **Open** the existing Eventstream `ES_ClickstreamEvents`.
-
-![alt text](assets/image_lab02_step03.png)
-
-4. **Select** the `Use custom endpoint` tile to add a source.
-
-![alt text](assets/image_lab02_step04.png)
-
-5. **Enter** the source name as `ClickstreamNBSource` and **click** `Add`.
-
-![alt text](assets/image_lab02_step05.png)
-
-6. **Click** `Publish` to publish the Eventstream as-is.
-
-![alt text](assets/image_lab02_step06.png)
-
-7. In the published Eventstream **Click** `ClickstreamNBSource` node to access the settings/details.
-
-![alt text](assets/image_lab02_step07.png)
-
-8. **Select** `Kafka` as the protocol.
-
-![alt text](assets/image_lab02_step08.png)
-
-9. **Select** `SAS Key Authentication` to access the secrets of this source endpoint.
-
-![alt text](assets/image_lab02_step09.png)
-
-10. **Copy** `Bootstrap server` value and **paste it** in a Notepad. You will need this value (and others) in the subsequent steps.
-
-![alt text](assets/image_lab02_step10.png)
-
-11. Similarly, **copy** `Topic name`. And then **copy** `Connection string-primary key` by first clicking on the eye and then on the copy icon on the right of that field. **Paste** these values in a notepad. You now have separate three values.
-
-![alt text](assets/image_lab02_step11.png)
-
-12. **Navigate** back to the `root level` of your workspace and go back to the folder `Lab 02 Clickstream Events`.
-
-![alt text](assets/image_lab02_step12.png)
-
-13. **Open** the existing notebook `NB_YCClickstreamGenerator`.
-
-![alt text](assets/image_lab02_step13.png)
-
-14. In the cell with the title '# Kafka Endpoint configuration parameters', **paste** the `bootstrap server value` as the value for the field 'KAFKA_BROKER', the `topic name` as the value for 'KAFKA_TOPIC' and `connection string` as the 'sas_password'.
-
-![alt text](assets/image_lab02_step14.png)
-
-15. **Click** on `Run all` to start generating clickstream events. 
-
-![alt text](assets/image_lab02_step15.png)
-
-16. **Navigate** back to the published `ES_ClickstreamEvents` Eventstream from the side ribbon (This Notebook will keep running). 
-
-![alt text](assets/image_lab02_step16.png)
-
-17. **Click** `Edit` from the menu ribbon to add a Eventstream destination.
-
-![alt text](assets/image_lab02_step17.png)
-
-18. **Select** `Transform events or add destination` node and **select** `Eventhouse` from the dropdown. A new node is added and an Eventhouse pane is shown on the right.
-
-![alt text](assets/image_lab02_step18.png)
-
-19. **Select** the following in the `Eventhouse pane` and **click** `Save`
-
-| Field | Value | 
-| - | - |
-| Data ingestion mode | `Direct ingestion` |
-| Destination name | `ClickstreamEventhouseDestination` |
-| Workspace | `Your workspace` |
-| Eventhouse | `EH_YCSneakerEventStore` |
-| KQL Database | `EH_YCSneakerEventStore` |
-
-20. The direct ingestion destination settings are filled in like this.
-
-![alt text](assets/image_lab02_step19.png)
-
-**Click** `Save` to save the destination settings.
-
-21. **Click** `Publish` to publish the Eventstream.
-
-![alt text](assets/image_lab02_step20.png)
-
-22. Wait for Eventhouse destination to load. In the published Eventstream, the `Configure button` becomes available.
-
-![alt text](assets/image_lab02_step21.png)
-
-23. **Enter** the table name `RawClickstreamData`, **click** on the tick mark, **click** `Next`.
-
-![alt text](assets/image_lab02_step22.png)
-
-24. **Preview** the messages fetched from Eventstream and click `Finish` to accept the proposed mapping.
-
-![alt text](assets/image_lab02_step23.png)
-
-25. **Check** if all the steps are successfully completed and then **click** `Close`.
-
-![alt text](assets/image_lab02_step24.png)
-
-26. **Navigate** back to your workspace.
-
-27. **Open** the existing `EH_YCSneakerEventStore` Eventhouse.
-
-28. **Open** the KQL database 'EH_YCSneakerEventStore'.
-
-![alt text](assets/image_lab02_step26.png)
-
-29. **Click** on `EH_YCSneakerEventStore_queryset`, which is the default query editor of the Eventhouse.
-
-![alt text](assets/image_lab01_step20.png)
-
-30. **Navigate** to the github repo of this workshop [Clickstream Events KQL](https://aka.ms/FabConKQL2Url) in a separate tab.
-
-31. **Copy** the `KQL code` from this file in the repo.
-
-![alt text](assets/image_lab02_step29.png)
-
-32. **Paste** the copied KQL code in the `EH_YCSneakerEventStore_queryset`.
-
-![alt text](assets/image_lab02_step30.png)
-
-33. **Rename** the tab as `Clickstream Events`.
-
-![alt text](assets/image_lab02_step31.png)
-
-34. **Select** the entire script in the KQL Queryset tab page and click `Run`. 
-
-![alt text](assets/image_lab02_step32.png)
-
-35. **Check** the output as shown in the image below. A new function, table and an update policy must have been created in your workspace.
-
-![alt text](assets/image_lab02_step33.png)
-
-The raw clickstream events are now available in rows in multiple tables, having typed values in the columns.
-
-### 4. Lab 03 - Factory Events
+### 3. Lab 02 - Factory Events
 
 Let's ingest energy meter events with power consumption telemetry measured on the Edge. coming from the electromotor available in our demo factory.
 
-#### Lab 03.1 - Create a new Energy Meter Telemetry Eventstream
+#### Lab 02.1 - Create a new Energy Meter Telemetry Eventstream
 
 In this section, we will be streaming Energy meter telemetry events (eg. current and voltage events from an electric motor). The events will be streamed into an Eventstream and be written into our Eventhouse KQL Database.
 
@@ -949,7 +774,7 @@ We now have a solid stream of Energy meter data, ingested from the Edge to the c
 
 Let's ingest LoraWan telemetry from all kinds of LoraWan sensors, implemented in a demo factory (like temperature sensors, vibration sensors, and even location trackers). We are especially interested in the telemetry sensors.
 
-#### Lab 03.2 - Create a new LoraWan Telemetry Eventstream
+#### Lab 02.2 - Create a new LoraWan Telemetry Eventstream
 
 In this section, we will be streaming LoraWan telemetry events (temperature events). The events will be streamed into an Eventstream and written into our Eventhouse KQL Database.
 
@@ -1196,7 +1021,7 @@ SilverLoraWanTemperature
 
 We have seen how we can ingest LoraWan telemetry from multiple devices via one Eventstream. The telemetry is ingested into a Bronze LoraWan table in the KQL Database via an elaborate table mapping. The Eventhouse supports the Medallion Architecture via table Update policies. Here, a Silver LoraWan table with temperature sensor telemetry is filled, complete with the correct column types. We have also seen how we can use the no-code Explore data to check the data in more detail. In the next paragraph, we will complete the temperature sensor data with data from a real-time weather data service.
 
-#### Lab 03.3 - Activator alerts based on high temperatures
+#### Lab 02.3 - Activator alerts based on high temperatures
 
 In this section, we will extend the LoraWan solution with an Activator, sending alerts under certain conditions. In our demo factory, the production output will have lower quality when the temperature in the factory is higher than 30 degrees Celsius. The Activator will send alert messages based on temperatures higher than 30 degrees Celsius within the factory, measured by our LoraWan temperature sensors.
 
@@ -1260,7 +1085,7 @@ We have experienced how we can use an Activator to turn events and KQL queries u
 
 Here, we used the KQL Queryset to trigger events. Within Microsoft Fabric, Activator integration is available at more places such as an Eventstream destination or PowerBI report integration.
 
-#### Lab 03.4 - Create a new Weather data Eventstream
+#### Lab 02.4 - Create a new Weather data Eventstream
 
 At this moment, we get energy meter telemetry from an electric motor within our demo factory and from several temperature sensors placed within the factory.
 
@@ -1481,7 +1306,7 @@ We also learned how we can query the table using the KQL query language using a 
 
 Finally, we learned about using a materialized view to de-duplicate rows and adding a retention time to limit the data storage.
 
-#### Lab 03.5 - Turning a KQL query into a dashboard for sharing
+#### Lab 02.5 - Turning a KQL query into a dashboard for sharing
 
 In this section, we mix the environmental data from the LoraWan sensors with the Real-Time weather data. The events will be queried both in a KQL Queryset and a Real-Time dashboard.
 
@@ -1601,7 +1426,7 @@ Finally, we can share these dashboards in several ways and limit the access (eg.
 
 Now, let's investigate how more traditional data lakes can benefit from real-time data.
 
-#### Lab 03.6 (Bonus) - Adding Lakehouse shortcuts to real-time data via OneLake
+#### Lab 02.6 (Bonus) - Adding Lakehouse shortcuts to real-time data via OneLake
 
 A Microsoft Fabric Lakehouse is a unified platform for storing, managing, and analyzing both structured and unstructured data, turning eg. CSV files into tables. Using more traditional SQL, these tables can be queried.
 
@@ -1717,7 +1542,7 @@ In our Lakehouse, we have gathered both real-time data from sensors and contextu
 
 </div>
 
-### 5. Lab 04 - OneLake Events
+### 4. Lab 03 - OneLake Events
 
 YourCompany receives from its shipping partners files containing all the shipments that have occured in that month. Since these files can come at any time and from many different providers, we will create an event driven workflow so that the files are processed and can be queried as soon as they arrive.
 
