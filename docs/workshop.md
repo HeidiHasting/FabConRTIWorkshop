@@ -461,9 +461,6 @@ To achieve this, we start with ingesting these shipping events into Real-Time In
 
 The incoming XML messages with shipping events are now made available in typed columns and available for querying.
 
-Notice the ShippingEvents table is empty, this is because an update policy is only applied to new data as it arrives in the RawShippingMsgs, existing data is ignored. You can re-append the RawShippingMsgs data back into the RawShippingMsgs table for the update policy to run and see the data flow through to ShippingEvents table by using the following KQL command.
-```.append RawShippingMsgs <| RawShippingMsgs```
-
 
 ### 3. Lab 02 - Factory Events
 
