@@ -3,7 +3,7 @@
 This repository contains artifacts created to deliver Microsoft Fabric Real-Time Intelligence hands-on lab cum tutorial. This workshop can be accessed on the MOAW (Mother of All Workshops) portal.
 
 To get started, proceeed to the MOAW:
-- [Fabric Real-Time Intelligence Workshop](https://aka.ms/FabConRTIWorkshop)
+- [Fabric Real-Time Intelligence Workshop](https://moaw.dev/workshop/gh:minwal/FabConATLRTIWorkshop/main/docs/?step=0)
 - [Markdown for the workshop](https://github.com/minwal/FabConATLRTIWorkshop/blob/main/docs/workshop.md)
 
 Please create an issue on this repo to request any changes or share feedback.
