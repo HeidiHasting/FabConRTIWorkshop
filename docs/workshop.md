@@ -1476,7 +1476,7 @@ Weather is not sunny`
 10. Click **Copy** connection string then click **open flow builder** which will open Power automate in new browser window
    ![alt text](assets/image_lab02_OA_step07.png)
 11. In Power automate window select the 'When an activator rule is triggered', paste the connection string copied earlier
-1. ![alt text](image_lab02_OA_step11.png)
+   ![alt text](image_lab02_OA_step11.png)
   
 12. From here you can define the remaining actions for the flow, like `send an email(v2)` but you won't be able to test this in the lab environment. This gives you an idea on how to build an operations agent and set actions by using Power automate connectors with outlook, teams and many others. Once you save and start the Operations Agent, it will send messages in Microsft Teams whenever a rule is triggered to request approval from the human owner before proceeding.
 
