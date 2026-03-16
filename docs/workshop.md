@@ -1452,7 +1452,7 @@ Now, let's investigate how more traditional data lakes can benefit from real-tim
 
 Operations Agent is an autonomous agent that automates real-time monitoring of assets and supports real-time decision-making through seamless collaboration between AI agents and human operators. You can assign goals and tasks to this agent using natural language and it can automatically generate playbook of rules and actions.
 
-1. To create an Operations agent, **click** on the button `+ New Item` in the workspace, **select** `Opeartions agent`
+1. To create an Operations agent, **click** on the button `+ New Item` in the workspace, **select** `Operations agent`
 
 ![alt text](assets/image_lab02_OA_step01.png)
 
