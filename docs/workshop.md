@@ -1478,7 +1478,7 @@ Weather is not sunny`
 11. In Power automate window, you can select any action like `send an email(v2)` but you won't be able to test this in the lab environment. But this will give you an idea on how to build an operations agent and set actions by using Power automate connectors with outlook, teams and many others. Once you save and start the Operations Agent, it will send messages in Microsft Teams whenever a rule is triggered to request approval from the human owner before proceeding.
 
 
-#### Lab 02.7 (Bonus) - Adding Lakehouse shortcuts to real-time data via OneLake
+#### Lab 2.8 (Bonus) - Adding Lakehouse shortcuts to real-time data via OneLake
 
 A Microsoft Fabric Lakehouse is a unified platform for storing, managing, and analyzing both structured and unstructured data, turning eg. CSV files into tables. Using more traditional SQL, these tables can be queried.
 
