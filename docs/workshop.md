@@ -828,7 +828,11 @@ You will ingest the LoraWan data from an Azure Event Hub.
 
 ![alt text](assets/image_task05_step04.png)
 
-3. In the dialog 'Configure connection settings' **Select** `FabConAtlantaLorawanConnection` for the combobox 'Connection' and **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `EVNTAttendee1`. **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
+3. In the dialog 'Configure connection settings' **Select** for the combobox 'Connection
+    - Users 1-100 select `FabConAtlantaLorawanConnection`
+    - Users 101-200 select `FabConAtlantaLorawanConnection2`
+
+4. **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `EVNTAttendee1`. **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
 
 ![alt text](assets/image_task05_step05.png)
 
