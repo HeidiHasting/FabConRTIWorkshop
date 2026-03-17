@@ -832,7 +832,7 @@ You will ingest the LoraWan data from an Azure Event Hub.
     - Users 1-100 select `FabConAtlantaLorawanConnection`
     - Users 101-200 select `FabConAtlantaLorawanConnection2`
 
-4. **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `EVNTAttendee1`. **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
+4. **insert** the name of the consumer group into the field 'Consumer group' that aligns with the username that was provided to you. In my case, this is `evntattendee1` (must be in lowercase). **Ensure** that the 'Data format' is `Json` and **click on the pencil** icon next to 'Source name'.
 
 ![alt text](assets/image_task05_step05.png)
 
