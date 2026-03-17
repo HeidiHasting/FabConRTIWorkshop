@@ -964,7 +964,7 @@ BronzeLoraWan
 ```
 BronzeLoraWan
 | where applicationId == 'svelde-elsys-ers'
-| project applicationId, deviceId, timestamp,
+| project applicationId, deviceid, timestamp,
           humidity = toint(Data.uplink_message.decoded_payload.humidity), temperature = todouble(Data.uplink_message.decoded_payload.temperature),
           light = toint(Data.uplink_message.decoded_payload.light), battery = toint(Data.uplink_message.decoded_payload.vdd)
 | order by timestamp desc
@@ -997,7 +997,7 @@ ParseTemperatureLoraWanData()
 {
 BronzeLoraWan
 | where applicationId == 'svelde-elsys-ers'
-| project applicationId, deviceId, timestamp,
+| project applicationId, deviceid, timestamp,
           humidity = toint(Data.uplink_message.decoded_payload.humidity),
           temperature = todouble(Data.uplink_message.decoded_payload.temperature),
           light = toint(Data.uplink_message.decoded_payload.light),
